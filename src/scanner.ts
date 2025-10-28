@@ -6,7 +6,10 @@ import * as path from 'path';
 const PRIVATE_KEY_PATTERN = /(?<!\w)0x[a-fA-F0-9]{64}(?!\w)/g;
 
 // File extensions to scan
-const SCANNABLE_EXTENSIONS = ['.ts', '.js', '.sol', '.json', '.env', '.yml', '.yaml'];
+const SCANNABLE_EXTENSIONS = ['.ts', '.js', '.sol', '.json', '.yml', '.yaml'];
+
+// Specific filenames to scan (like dotfiles)
+const SCANNABLE_FILES = ['.env'];
 
 // Directories to ignore
 const IGNORED_DIRS = ['node_modules', '.git', 'dist'];
@@ -37,11 +40,12 @@ function shouldScanFile(filePath: string): boolean {
   const fileName = path.basename(filePath);
   const ext = path.extname(filePath).toLowerCase();
   
-  // Check for dotfiles like .env
-  if (fileName.startsWith('.')) {
-    return SCANNABLE_EXTENSIONS.includes(fileName.toLowerCase());
+  // Check for specific filenames (like .env)
+  if (SCANNABLE_FILES.includes(fileName.toLowerCase())) {
+    return true;
   }
   
+  // Check for file extensions
   return SCANNABLE_EXTENSIONS.includes(ext);
 }
 
