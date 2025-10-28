@@ -31,10 +31,17 @@ function shouldIgnoreDir(dirName: string): boolean {
 }
 
 /**
- * Check if a file should be scanned based on its extension
+ * Check if a file should be scanned based on its extension or name
  */
 function shouldScanFile(filePath: string): boolean {
+  const fileName = path.basename(filePath);
   const ext = path.extname(filePath).toLowerCase();
+  
+  // Check for dotfiles like .env
+  if (fileName.startsWith('.')) {
+    return SCANNABLE_EXTENSIONS.includes(fileName.toLowerCase());
+  }
+  
   return SCANNABLE_EXTENSIONS.includes(ext);
 }
 
