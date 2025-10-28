@@ -1,0 +1,37 @@
+{
+  "name": "key-safe",
+  "version": "1.0.0",
+  "description": "npm package for detecting Ethereum private keys before git commits",
+  "main": "dist/scanner.js",
+  "types": "dist/scanner.d.ts",
+  "bin": {
+    "key-safe": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "postinstall": "node src/install.js",
+    "test": "node dist/cli.js test-files"
+  },
+  "keywords": [
+    "ethereum",
+    "private-key",
+    "security",
+    "git-hook",
+    "scanner"
+  ],
+  "author": "",
+  "license": "ISC",
+  "files": [
+    "dist",
+    "src/install.js",
+    "hooks"
+  ],
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.9.2",
+    "typescript": "^5.9.3"
+  }
+}

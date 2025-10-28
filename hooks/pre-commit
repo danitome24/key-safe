@@ -1,0 +1,22 @@
+#!/bin/sh
+
+# key-safe pre-commit hook
+# Scans staged files for Ethereum private keys
+
+echo "Running key-safe check..."
+
+# Run key-safe on the repository
+npx key-safe .
+
+# Capture the exit code
+EXIT_CODE=$?
+
+if [ $EXIT_CODE -ne 0 ]; then
+  echo ""
+  echo "Commit blocked: Private keys detected!"
+  echo "Please remove the private keys before committing."
+  exit 1
+fi
+
+echo "key-safe check passed"
+exit 0
